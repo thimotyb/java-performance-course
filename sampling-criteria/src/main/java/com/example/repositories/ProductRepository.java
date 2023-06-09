@@ -26,8 +26,10 @@ public class ProductRepository {
     Root<Product> product = cq.from(Product.class);
     cq.select(product);
 
-    //Predicate idPredicate = cb.equal(cq.from(Product.class).get("id"), id);
-    Predicate idPredicate = cb.equal(product.get("id"), id);
+    // This one create a useless cross join
+    Predicate idPredicate = cb.equal(cq.from(Product.class).get("id"), id);
+    // This has better performance
+    //Predicate idPredicate = cb.equal(product.get("id"), id);
     cq.where(idPredicate);
 
     TypedQuery<Product> query = entityManager.createQuery(cq);
