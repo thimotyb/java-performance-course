@@ -10,8 +10,12 @@ import java.util.Random;
 @Service
 public class RandomProductsService {
 
+	// Here it produces a Leak
+	List<Product> result = new ArrayList<>();
+	
   public List<Product> getRandomProductsList(int n) {
-    List<Product> result = new ArrayList<>();
+      // Here it gets GC'd when finished (and JIT-cached)s
+	  //List<Product> result = new ArrayList<>();
     Random r = new Random();
     for (int i = 0; i < n; i++) {
       int randomValue = r.nextInt(1000);
